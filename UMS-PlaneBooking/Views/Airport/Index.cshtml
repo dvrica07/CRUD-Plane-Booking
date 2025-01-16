@@ -1,0 +1,107 @@
+﻿@model IEnumerable<UMS_PlaneBooking.Models.Airport>
+
+@{
+    ViewData["Title"] = "Airports";
+}
+@*Header*@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Airport</title>
+        <link href="~/css/table.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="col-12 mt-3">
+            <div class="row">
+                <div class="col-6 mb-1 p-0">
+                    <h2 class="table-title">Manage Airport</h2>
+                </div>
+                <div class="col-6 d-flex justify-content-end mb-1 p-0">
+                    <a href="#" id="openAddAirportModal" class="btn btn-success">
+                        <i class="material-icons">&#xE147;</i> <span>Add New Airport</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        @*Table*@
+        <table class="table table-striped" id="tblAirport">
+            <thead>
+                <tr>
+                    <th>Airport ID</th>
+                    <th>Airport Name</th>
+                    <th>Address</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    int index = 1;
+                    foreach (var airport in Model)
+                    {
+                        <tr>
+                            <td class="airportId">
+                                <span>@airport.AirportID</span>
+                            </td>
+                            <td class ="airportName">
+                                <span>@airport.AirportName</span>
+                                <input type="text" value="@airport.AirportName" style="display:none" />
+                            </td>
+                            <td class="airportAddress">
+                                <span>@airport.Address</span>
+                                <input type="text" value="@airport.Address" style="display:none" />
+                            </td>
+                            <td class="text-center">
+                                <a class="btn btn-primary btn-sm edit" href="javascript:;">Edit</a>
+                                <a class="btn btn-primary btn-sm update" href="javascript:;" style="display:none">Update</a>
+                                <a class="btn btn-primary btn-sm cancel" href="javascript:;" style="display:none">Cancel</a>
+                                <a class="btn btn-primary btn-sm delete" href="javascript:;">Delete</a>
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">No airports found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @*Add new Airport*@
+        <div id="addAirportModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addAirportModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form id="addAirportForm">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addAirportModalLabel">Add Airport</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="AirportName">Name</label>
+                                <input type="text" class="form-control" id="AirportName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="Address">Address</label>
+                                <input type="text" class="form-control" id="Address" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <input type="submit" class="btn btn-success" value="Add">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+@section Scripts { 
+    <script src="~/js/airport.js"></script>
+}

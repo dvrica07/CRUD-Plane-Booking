@@ -1,0 +1,128 @@
+﻿@using UMS_PlaneBooking.Models;
+@model IEnumerable<Flight>
+
+@{
+    ViewData["Title"] = "Flights";
+    var airports = ViewData["Airports"] as List<Airport>;
+    var planes = ViewData["Planes"] as List<Plane>;
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Flight</title>
+        <link href="~/css/table.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="col-12 mt-3">
+            <div class="row">
+                <div class="col-6 mb-1 p-0">
+                    <h2 class="table-title">Manage Flight</h2>
+                </div>
+            <div class="col-6 d-flex justify-content-end mb-1 p-0">
+                    <a href="#" id="openAddFlightModal" class="btn btn-success">
+                        <i class="material-icons">&#xE147;</i> <span>Add New Flight</span>
+                    </a>
+                </div>
+            </div>
+       </div>
+    <table class="table table-striped" id="tblFlight">
+        <thead>
+            <tr>
+                <th>Flight ID</th>
+                <th>Flight</th>
+                <th>Airpot Name</th>
+                <th>Plane</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                int index = 1;
+                foreach (var flight in Model)
+                {
+                    <tr data-flight-id="@flight.FlightID">
+                        <td class="flightId">
+                            <span>@flight.FlightID</span>
+                        </td>
+                        <td class="flightCode">
+                            <span>@flight.FlightCode</span>
+                            <input type="text" value="@flight.FlightCode" style="display:none" />
+                        </td>
+                        <td class="airportName">
+                            <span>@flight.Airport.AirportName</span>
+                            <input type="text" id="@flight.Airport.AirportID" value="@flight.Airport.AirportName" style="display:none" />
+                        </td>
+                        <td class="planeAirline">
+                            <span>@flight.Plane.Airline</span>
+                            <input type="text" id="@flight.Plane.PlaneID" value="@flight.Plane.Airline" style="display:none" />
+                        </td>
+                        <td class="text-center">
+                            <a class="btn btn-primary btn-sm edit" href="javascript:;">Edit</a>
+                            <a class="btn btn-primary btn-sm update" href="javascript:;" style="display:none">Update</a>
+                            <a class="btn btn-primary btn-sm cancel" href="javascript:;" style="display:none">Cancel</a>
+                            <a class="btn btn-primary btn-sm delete" href="javascript:;">Delete</a>
+                        </td>
+                    </tr>
+                    index++;
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" class="text-center">No flights found.</td>
+                </tr>
+            }
+        </tbody>
+        </table>
+         @*Add new Flight*@
+         <div id="addFlightModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addFlightModalLabel" aria-hidden="true">
+             <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form id="addFlightForm">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addFlightModalLabel">Add Flight</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="FlightCode">Name</label>
+                                <input type="text" class="form-control" id="FlightCode" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <select class="custom-select" id="inputGroupSelect01" required>
+                                    <option selected>Choose Airport</option>
+                                    @foreach(var airport in airports)
+                                    {
+                                        <option value="@airport.AirportID">@airport.AirportName</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <select class="custom-select" id="inputGroupSelect02" required>
+                                    <option selected>Choose Plane</option>
+                                    @foreach (var plane in planes)
+                                    {
+                                        <option value="@plane.PlaneID">@plane.Airline</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <input type="submit" class="btn btn-success" value="Save">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+@section Scripts {
+    <script src="~/js/Flight.js"></script>
+}

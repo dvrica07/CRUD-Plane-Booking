@@ -1,0 +1,112 @@
+﻿@model IEnumerable<UMS_PlaneBooking.Models.Plane>
+
+@{
+    ViewData["Title"] = "Planes";
+}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Plane</title>
+        <link href="~/css/table.css" rel="stylesheet" />
+    </head>
+    <body>
+         <div class="col-12 mt-3">
+            <div class="row">
+                <div class="col-6 mb-1 p-0">
+                    <h2 class="table-title">Manage Plane</h2>
+                </div>
+                <div class="col-6 d-flex justify-content-end mb-1 p-0">
+                    <a href="#" id="openAddPlaneModal" class="btn btn-success">
+                        <i class="material-icons">&#xE147;</i> <span>Add New Plane</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped" id="tblPlane">
+            <thead>
+                <tr>
+                    <th>Plane ID</th>
+                    <th>Code</th>
+                    <th>Airline</th>
+                    <th>Model</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    int index = 1;
+                    foreach (var plane in Model)
+                    {
+                        <tr>
+                            <td class="planeId">
+                                <span>@plane.PlaneID</span>
+                            </td>
+                            <td class ="planeCode">
+                                <span>@plane.PlaneCode</span>
+                                <input type="text" value="@plane.PlaneCode" style="display:none" />
+                            </td>
+                            <td class="planeAirline">
+                                <span>@plane.Airline</span>
+                                <input type="text" value="@plane.Airline" style="display:none" />
+                            </td>
+                            <td class="planeModel">
+                                <span>@plane.Model</span>
+                                <input type="text" value="@plane.Model" style="display:none" />
+                            </td>
+                            <td class="text-center">
+                                <a class="btn btn-primary btn-sm edit" href="javascript:;">Edit</a>
+                                <a class="btn btn-primary btn-sm update" href="javascript:;" style="display:none">Update</a>
+                                <a class="btn btn-primary btn-sm cancel" href="javascript:;" style="display:none">Cancel</a>
+                                <a class="btn btn-primary btn-sm delete" href="javascript:;">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">No planes found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+         @*Add new Plane*@
+        <div id="addPlaneModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addPlaneModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form id="addPlaneForm">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addPlaneModalLabel">Add Plane</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="PlaneCode">Code</label>
+                                <input type="text" class="form-control" id="PlaneCode" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="PlaneAirline">Airline</label>
+                                <input type="text" class="form-control" id="PlaneAirline" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="PlaneModel">Model</label>
+                                <input type="text" class="form-control" id="PlaneModel" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <input type="submit" class="btn btn-success" value="Add">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+@section Scripts {
+    <script src="~/js/plane.js"></script>
+}

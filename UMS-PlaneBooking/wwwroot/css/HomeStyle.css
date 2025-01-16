@@ -1,0 +1,50 @@
+﻿* Banner section with image */
+.banner {
+    background-image: url('../images/landing-banner.jpg');
+    background-size: cover;
+    background-position: center;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+/* Hero section styling */
+.hero-section {
+    background-image: url('../images/landing-banner.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #4C5866;
+    padding: 100px 0;
+    text-align: center;
+    text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.6);
+}
+
+.lead{
+    font-weight: 400;
+}
+.services-text {
+    color: #4C5866;
+}
+
+.search-box {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card {
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+    }
+
+.footer-section {
+    background-color: #4C5866;
+}
