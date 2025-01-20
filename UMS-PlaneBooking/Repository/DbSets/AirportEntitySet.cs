@@ -20,14 +20,14 @@ public class AirportEntitySet : GenericEntity<AirportEntity>, IAirport
             var result = await applicationContext.Airports.FirstOrDefaultAsync(w => w.AirportName == Name );
             if (result == null)
             {
-                return AppResult<AirportEntity>.CreateFailed(new ApplicationException("Can't find waitlist by email"), "Can't find waitlist by email");
+                return AppResult<AirportEntity>.CreateFailed(new ApplicationException("Can't find airport name"), "Can't find airport name");
             }
 
-            return AppResult<AirportEntity>.CreateSucceeded(result, "Successfully find waitlist by email");
+            return AppResult<AirportEntity>.CreateSucceeded(result, "Successfully find airport name airport name");
         }
         catch (Exception ex)
         {
-            return AppResult<AirportEntity>.CreateFailed(ex, "An error occured when getting waitlist by email");
+            return AppResult<AirportEntity>.CreateFailed(ex, "An error occured while getting airport name");
         }
     }
 }

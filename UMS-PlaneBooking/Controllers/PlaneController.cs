@@ -50,7 +50,7 @@ namespace UMS_PlaneBooking.Controllers
         {
             try
             {
-                var create = await _planeRepository.UpdateAsync(new Repository.Entities.PlaneEntity
+                var update = await _planeRepository.UpdateAsync(new Repository.Entities.PlaneEntity
                 {
                     PlaneID = plane.PlaneID,
                     Airline = plane.Airline,
@@ -58,7 +58,7 @@ namespace UMS_PlaneBooking.Controllers
                     ChangedOn = DateTime.Now,
                 });
 
-                if (create.Succeeded && create.Result is not null)
+                if (update.Succeeded && update.Result is not null)
                 {
                     return Ok(new { message = "Plane updated successfully." });
                 }

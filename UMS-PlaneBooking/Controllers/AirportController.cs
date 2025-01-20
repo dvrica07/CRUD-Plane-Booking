@@ -4,8 +4,6 @@ using UMS_PlaneBooking.Services.Repository.Interfaces;
 
 namespace UMS_PlaneBooking.Controllers;
 
-[Route("api/[controller]")]
-[ApiController]
 public class AirportController : Controller
 {
     private readonly IAirportRepository _airportRepository;
@@ -13,8 +11,6 @@ public class AirportController : Controller
     {
         _airportRepository = airportRepository;
     }
-    // GET
-    [Route("GetAllAirport")]
     public async Task<IActionResult> Index()
     {
         var result = await _airportRepository.GetAllAsAsync();
@@ -23,9 +19,8 @@ public class AirportController : Controller
             AirportID = a.AirportID,
             AirportName = a.AirportName,
             Address = a.Address
-            // Add any other necessary fields
         }).ToList();
-        return View(airports); // Assuming Result contains IEnumerable<Airport>
+        return View(airports); 
     }
     // Get: Check if airport by name exists
     public async Task<IActionResult> GetByAirportName(string airportName)
@@ -76,14 +71,15 @@ public class AirportController : Controller
     {
         try
         {
-            var create = await _airportRepository.UpdateAsync(new Repository.Entities.AirportEntity
+            var update = await _airportRepository.UpdateAsync(new Repository.Entities.AirportEntity
             {
+                AirportID   = airport.AirportID,
                 Address     = airport.Address,
                 AirportName = airport.AirportName,
                 ChangedOn   = DateTime.Now,
             });
 
-            if (create.Succeeded && create.Result is not null)
+            if (update.Succeeded && update.Result is not null)
             {
                 return Ok(new { message = "Airport updated successfully." });
             }

@@ -3,18 +3,15 @@
         e.preventDefault();  
         $("#addPlaneModal").modal('show');  
     });
-    // Reset the form fields when the modal is hidden (closed)
     $('#addPlaneModal').on('hidden.bs.modal', function () {
-        $('#addPlaneForm')[0].reset(); // Reset the form when the modal is closed
+        $('#addPlaneForm')[0].reset();
     });
-    // Close modal when "X" button or "Cancel" button is clicked
     $('.close, .btn-secondary').click(function () {
         $('#addPlaneModal').modal('hide');
     });
 
     // Handle form submission
     $("#addPlaneForm").submit(function (event) {
-        debugger;
         event.preventDefault(); 
 
         var code = $("#PlaneCode").val();
@@ -81,7 +78,6 @@
         row.find(".cancel").hide();
         $(this).hide();
 
-        // Prepare airport data for updating
         planeData.planeId = row.find(".planeId span").text();
         planeData.planeCode = row.find(".planeCode input").val(); 
         planeData.planeAirline = row.find(".planeAirline input").val(); 
@@ -122,7 +118,6 @@
 
     // Delete event handler.
     $("body").on("click", "#tblPlane .delete", function () {
-        debugger;
         if (confirm("Do you want to delete this row?")) {
             var row = $(this).closest("tr");
             var planeData = {};
