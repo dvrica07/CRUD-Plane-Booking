@@ -1,4 +1,4 @@
-﻿$(document).ready(function () { Airport' button is clicked
+﻿$(document).ready(function () { 
     $("#openAddAirportModal").click(function (e) {
         e.preventDefault();  
         $("#addAirportModal").modal('show');  
