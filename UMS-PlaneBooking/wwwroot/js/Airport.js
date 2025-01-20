@@ -1,21 +1,19 @@
-﻿$(document).ready(function () {
-    // Trigger the modal when the 'Add New Airport' button is clicked
+﻿$(document).ready(function () { Airport' button is clicked
     $("#openAddAirportModal").click(function (e) {
-        e.preventDefault();  // Prevent default link behavior
-        $("#addAirportModal").modal('show');  // Show the modal
+        e.preventDefault();  
+        $("#addAirportModal").modal('show');  
     });
-    // Reset the form fields when the modal is hidden (closed)
     $('#addAirportModal').on('hidden.bs.modal', function () {
-        $('#addAirportForm')[0].reset(); // Reset the form when the modal is closed
+        $('#addAirportForm')[0].reset();
     });
-    // Close modal when "X" button or "Cancel" button is clicked
+
     $('.close, .btn-secondary').click(function () {
         $('#addAirportModal').modal('hide');
     });
     // Handle form submission
     $("#addAirportForm").submit(function (event) {
         debugger;
-        event.preventDefault(); // Prevent the form from submitting the traditional way
+        event.preventDefault(); 
 
         var airportName = $("#AirportName").val();
         var address = $("#Address").val();
@@ -23,13 +21,12 @@
         // Check if the airport name already exists
         $.ajax({
             type: "GET",
-            url: "/Airport/GetByAirportName", // Create an endpoint for this check in your controller
+            url: "/Airport/GetByAirportName", 
             data: { airportName: airportName },
             success: function (response) {
                 if (response.exists) {
                     alert("Airport name already exists. Please choose a different name.");
                 } else {
-                    // Proceed with form submission if the airport name is unique
                     var airportData = {
                         AirportName: airportName,
                         Address: address
@@ -98,17 +95,16 @@
 
         // Prepare airport data for updating
         airportData.AirportID = row.find(".airportId span").text();
-        airportData.AirportName = row.find(".airportName input").val();  // Use input value here
-        airportData.Address = row.find(".airportAddress input").val();  // Use input value here
+        airportData.AirportName = row.find(".airportName input").val();  
+        airportData.Address = row.find(".airportAddress input").val();  
 
         $.ajax({
             type: "POST",
-            url: "/Airport/UpdateAirport", // Ensure this URL is correct
+            url: "/Airport/UpdateAirport", 
             data: JSON.stringify(airportData),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                // Handle successful update if needed
                 alert("Airport updated successfully!");
             },
             error: function (xhr, status, error) {
@@ -145,23 +141,18 @@
             $.ajax({
                 type: "POST",
                 url: "/Airport/DeleteAirport",
-                data: JSON.stringify(airportData),   // Use JSON.stringify to pass the data correctly
+                data: JSON.stringify(airportData),  
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    // Check if the deletion was successful
                     if (response.message === "Airport deleted successfully.") {
-                        // Remove the row from the table after successful deletion
                         row.remove();
-
-                        // Optionally, show a success message to the user
-                        alert(response.message);  // You can customize this or display it elsewhere
+                        alert(response.message); 
                     } else {
                         alert("Failed to delete the airport. Please try again.");
                     }
                 },
                 error: function (xhr, status, error) {
-                    // Handle any errors that might occur during the AJAX request
                     alert("An error occurred while deleting the row.");
                 }
             });
