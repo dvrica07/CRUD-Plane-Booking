@@ -12,7 +12,6 @@
     });
     // Handle form submission
     $("#addAirportForm").submit(function (event) {
-        debugger;
         event.preventDefault(); 
 
         var airportName = $("#AirportName").val();
@@ -133,7 +132,6 @@
 
     // Delete event handler.
     $("body").on("click", "#tblAirport .delete", function () {
-        debugger;
         if (confirm("Do you want to delete this row?")) {
             var row = $(this).closest("tr");
             var airportData = {};
